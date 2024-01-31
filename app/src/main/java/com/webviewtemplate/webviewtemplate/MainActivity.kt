@@ -10,8 +10,9 @@ import com.webviewtemplate.webviewtemplate.databinding.ActivityMainBinding
 
 class MainActivity : Activity() {
     // you can make offline application with local file
-    private val applicationUrl = file:///assets/index.html"
+    private val applicationUrl = "file:///assets/index.html"
     //or you can load url
+    //private val applicationUrl ="https://purnorup.com/challenging-bricks"
     //private val applicationUrl = "https://www.wikipedia.org/"
     private lateinit var binding: ActivityMainBinding
     private lateinit var webView: WebView
