@@ -3,17 +3,12 @@ package com.webviewtemplate.webviewtemplate
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Build
-import android.os.Bundle
 import android.webkit.WebView
-import android.window.OnBackInvokedDispatcher
 import com.webviewtemplate.webviewtemplate.databinding.ActivityMainBinding
 
 class MainActivity : Activity() {
-    // you can make offline application with local file
-    private val applicationUrl = "file:///assets/index.html"
-    //or you can load url
-    //private val applicationUrl ="https://purnorup.com/challenging-bricks"
-    //private val applicationUrl = "https://www.wikipedia.org/"
+    // Load local HTML file from the 'assets' directory
+    private val applicationUrl = "file:///android_asset/index.html"
     private lateinit var binding: ActivityMainBinding
     private lateinit var webView: WebView
 
@@ -23,7 +18,6 @@ class MainActivity : Activity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         webView = binding.webView
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             onBackInvokedDispatcher.registerOnBackInvokedCallback(
@@ -37,12 +31,9 @@ class MainActivity : Activity() {
             }
         }
 
-
         webView.settings.domStorageEnabled = true
         webView.settings.javaScriptEnabled = true
 
-
         webView.loadUrl(applicationUrl)
     }
-
 }
