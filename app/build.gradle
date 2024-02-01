@@ -5,11 +5,11 @@ plugins {
 
 
     android {
-        namespace 'com.webviewtemplate.webviewtemplate'
+        namespace 'com.webview.2048'
         compileSdk 34
 
         defaultConfig {
-            applicationId "com.webviewtemplate.webviewtemplate"
+            applicationId "com.webview.2048"
             minSdk 30
             targetSdk 34
             versionCode 1
