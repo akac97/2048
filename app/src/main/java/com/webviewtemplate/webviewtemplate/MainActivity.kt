@@ -2,7 +2,8 @@ package com.webviewtemplate.webviewtemplate
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.os.Build
+import android.os.Bundle
+import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.webkit.WebSettings
@@ -50,7 +51,6 @@ class MainActivity : Activity() {
             javaScriptEnabled = true
             setRenderPriority(WebSettings.RenderPriority.HIGH)
             cacheMode = WebSettings.LOAD_NO_CACHE
-            setAppCacheEnabled(false)
             blockNetworkImage = false
             loadsImagesAutomatically = true
             mixedContentMode = WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
