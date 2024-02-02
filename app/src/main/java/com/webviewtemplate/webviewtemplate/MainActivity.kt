@@ -3,17 +3,14 @@ package com.webviewtemplate.webviewtemplate
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Build
-import android.os.Bundle
 import android.webkit.WebView
-import android.window.OnBackInvokedDispatcher
+import android.webkit.WebViewClient
+import android.webkit.WebSettings
+import android.content.pm.ActivityInfo
 import com.webviewtemplate.webviewtemplate.databinding.ActivityMainBinding
 
 class MainActivity : Activity() {
-    // you can make offline application with local file
     private val applicationUrl = "file:///android_asset/index.html"
-    //or you can load url
-    //private val applicationUrl ="https://purnorup.com/challenging-bricks"
-    //private val applicationUrl = "https://www.wikipedia.org/"
     private lateinit var binding: ActivityMainBinding
     private lateinit var webView: WebView
 
@@ -24,25 +21,50 @@ class MainActivity : Activity() {
         setContentView(binding.root)
         webView = binding.webView
 
+        // Set screen orientation to vertical mode
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            onBackInvokedDispatcher.registerOnBackInvokedCallback(
-                OnBackInvokedDispatcher.PRIORITY_DEFAULT
-            ) {
-                if (webView.canGoBack()) {
-                    webView.goBack()
-                } else {
-                    finish()
-                }
+        // Enable hardware acceleration
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+        } else {
+            webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+        }
+
+        // Allow only HTTPS
+        webView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                return !url.startsWith("https://")
             }
         }
 
+        // Load local HTML file
+        if (savedInstanceState != null) {
+            webView.restoreState(savedInstanceState)
+        } else {
+            webView.loadUrl(applicationUrl)
+        }
 
-        webView.settings.domStorageEnabled = true
-        webView.settings.javaScriptEnabled = true
-
-
-        webView.loadUrl(applicationUrl)
+        with(webView.settings) {
+            domStorageEnabled = true
+            javaScriptEnabled = true
+            setRenderPriority(WebSettings.RenderPriority.HIGH)
+            cacheMode = WebSettings.LOAD_NO_CACHE
+            setAppCacheEnabled(false)
+            blockNetworkImage = false
+            loadsImagesAutomatically = true
+            mixedContentMode = WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
+        }
     }
 
+    // Save the state of the WebView when the activity is paused
+    override fun onPause() {
+        super.onPause()
+        webView.saveState(Bundle())
+    }
+
+    // Disable back button
+    override fun onBackPressed() {
+        // Do nothing
+    }
 }
