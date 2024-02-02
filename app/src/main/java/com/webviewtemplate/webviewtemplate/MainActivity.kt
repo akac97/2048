@@ -8,6 +8,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.webkit.WebSettings
 import android.content.pm.ActivityInfo
+import android.os.Build
 import com.webviewtemplate.webviewtemplate.databinding.ActivityMainBinding
 
 class MainActivity : Activity() {
