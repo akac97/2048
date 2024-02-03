@@ -6,5 +6,5 @@
   "prHourlyLimit": 50,
   "rebaseWhen": "behind-base-branch",
   "timezone": "Europe/Budapest",
-  "schedule": ["every hour"]
+  "schedule": ["every weekday"]
 }
