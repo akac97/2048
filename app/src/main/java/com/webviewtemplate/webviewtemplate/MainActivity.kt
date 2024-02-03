@@ -3,14 +3,14 @@ package com.webviewtemplate.webviewtemplate
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
+import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.webkit.WebSettings
 import android.content.pm.ActivityInfo
+import android.os.Build
 import android.webkit.WebResourceRequest
-import androidx.webkit.WebViewAssetLoader
 import com.webviewtemplate.webviewtemplate.databinding.ActivityMainBinding
-import android.view.View
 
 class MainActivity : Activity() {
     private val applicationUrl = "file:///android_asset/index.html"
@@ -28,10 +28,15 @@ class MainActivity : Activity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         // Enable hardware acceleration
-        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+        } else {
+            webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+        }
 
         // Allow only HTTPS
         webView.webViewClient = object : WebViewClient() {
+            @Suppress("OverridingDeprecatedMember")
             override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
                 return !request.url.toString().startsWith("https://")
             }
@@ -41,10 +46,7 @@ class MainActivity : Activity() {
         if (savedInstanceState != null) {
             webView.restoreState(savedInstanceState)
         } else {
-            val assetLoader = WebViewAssetLoader.Builder()
-                .addPathHandler("/android_asset/", WebViewAssetLoader.AssetsPathHandler(this))
-                .build()
-            webView.loadUrl(assetLoader.createAssetUrl(applicationUrl).toString())
+            webView.loadUrl(applicationUrl)
         }
 
         with(webView.settings) {
