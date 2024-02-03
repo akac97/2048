@@ -34,6 +34,9 @@ class MainActivity : Activity() {
             }
         }
 
+        // Disable page reload swipes
+        webView.setOnTouchListener { _, _ -> true }
+
         // Load local HTML file
         if (savedInstanceState != null) {
             webView.restoreState(savedInstanceState)
