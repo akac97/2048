@@ -10,6 +10,7 @@ import android.content.pm.ActivityInfo
 import android.webkit.WebResourceRequest
 import androidx.webkit.WebViewAssetLoader
 import com.webviewtemplate.webviewtemplate.databinding.ActivityMainBinding
+import android.view.View
 
 class MainActivity : Activity() {
     private val applicationUrl = "file:///android_asset/index.html"
@@ -43,7 +44,7 @@ class MainActivity : Activity() {
             val assetLoader = WebViewAssetLoader.Builder()
                 .addPathHandler("/android_asset/", WebViewAssetLoader.AssetsPathHandler(this))
                 .build()
-            webView.loadUrl(assetLoader.getAssetsHttpsPrefix().plus(applicationUrl))
+            webView.loadUrl(assetLoader.createAssetUrl(applicationUrl).toString())
         }
 
         with(webView.settings) {
