@@ -4,5 +4,7 @@
     "config:base"
   ],
   "prHourlyLimit": 50,
-  "rebaseWhen": "behind-base-branch"
+  "rebaseWhen": "behind-base-branch",
+  "timezone": "Europe/Budapest",
+  "schedule": ["every hour"]
 }
