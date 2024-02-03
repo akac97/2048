@@ -50,7 +50,6 @@ class MainActivity : Activity() {
         with(webView.settings) {
             domStorageEnabled = true
             javaScriptEnabled = true
-            setRenderPriority(WebSettings.RenderPriority.HIGH)
             cacheMode = WebSettings.LOAD_NO_CACHE
             blockNetworkImage = false
             loadsImagesAutomatically = true
