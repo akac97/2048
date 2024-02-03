@@ -3,5 +3,9 @@
   "extends": [
     "config:base"
   ],
-  "prHourlyLimit": 50
+  "prHourlyLimit": 50,
+  "interactive": {
+    "onboarding": true,
+    "rebaseWhen": "behind-base-branch"
+  }
 }
