@@ -9,6 +9,7 @@ import android.webkit.WebViewClient
 import android.webkit.WebSettings
 import android.content.pm.ActivityInfo
 import android.os.Build
+import android.webkit.WebResourceRequest
 import com.webviewtemplate.webviewtemplate.databinding.ActivityMainBinding
 
 class MainActivity : Activity() {
@@ -35,8 +36,9 @@ class MainActivity : Activity() {
 
         // Allow only HTTPS
         webView.webViewClient = object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                return !url.startsWith("https://")
+            @Suppress("OverridingDeprecatedMember")
+            override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
+                return !request.url.toString().startsWith("https://")
             }
         }
 
