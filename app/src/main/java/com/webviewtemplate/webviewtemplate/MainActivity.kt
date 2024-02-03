@@ -8,17 +8,18 @@ import android.webkit.WebViewClient
 import android.webkit.WebSettings
 import android.content.pm.ActivityInfo
 import android.webkit.WebResourceRequest
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.webviewtemplate.webviewtemplate.databinding.ActivityMainBinding
 
-class MainActivity : Activity() {
+class MainActivity : AppCompatActivity() {
     private val applicationUrl = "file:///android_asset/index.html"
     private lateinit var binding: ActivityMainBinding
     private lateinit var webView: WebView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         webView = binding.webView
 
         // Set screen orientation to vertical mode
