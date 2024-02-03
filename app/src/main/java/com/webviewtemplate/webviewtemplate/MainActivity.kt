@@ -1,6 +1,5 @@
 package com.webviewtemplate.webviewtemplate
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import android.view.View
@@ -8,7 +7,6 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.webkit.WebSettings
 import android.content.pm.ActivityInfo
-import android.os.Build
 import android.webkit.WebResourceRequest
 import com.webviewtemplate.webviewtemplate.databinding.ActivityMainBinding
 
@@ -17,7 +15,6 @@ class MainActivity : Activity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var webView: WebView
 
-    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -28,15 +25,10 @@ class MainActivity : Activity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         // Enable hardware acceleration
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
-        } else {
-            webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-        }
+        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
 
         // Allow only HTTPS
         webView.webViewClient = object : WebViewClient() {
-            @Suppress("OverridingDeprecatedMember")
             override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
                 return !request.url.toString().startsWith("https://")
             }
