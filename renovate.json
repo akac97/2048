@@ -4,8 +4,5 @@
     "config:base"
   ],
   "prHourlyLimit": 50,
-  "interactive": {
-    "onboarding": true,
-    "rebaseWhen": "behind-base-branch"
-  }
+  "rebaseWhen": "behind-base-branch"
 }
